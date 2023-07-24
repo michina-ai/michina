@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "michina"
+version = "0.1.0"
+description = "Integ test framework for LLMs."
+authors = ["bkitano <briankitano@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+xmltodict = "^0.13.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
