@@ -12,6 +12,9 @@ xmltodict = "^0.13.0"
 build = "^0.10.0"
 twine = "^4.0.2"
 bumpver = "^2023.1125"
+langchain = "^0.0.240"
+python-dotenv = "^1.0.0"
+openai = "^0.27.8"
 
 [build-system]
 requires = ["poetry-core"]
@@ -33,10 +36,6 @@ push = true
 ]
 "src/michina/__init__.py" = [
     '__version__ = "{version}"',
-]
-"setup.py" = [
-    "{version}",
-    "{pep440_version}",
 ]
 "README.md" = [
     "{version}",
