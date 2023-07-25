@@ -1,9 +1,9 @@
 """
 This is a module for the Michina test suite.
 """
-from lib.checks.base_check import BaseCheck
-from lib.exceptions.exceptions import InvalidTypeException, InvalidXMLException, LanguageModelException
-from lib.checks.consistency.prompt import CONSISTENCY_CHECK_TEMPLATE
+from michina.checks.base_check import BaseCheck
+from michina.exceptions.exceptions import InvalidTypeException, InvalidXMLException, LanguageModelException
+from michina.checks.consistency.prompt import CONSISTENCY_CHECK_TEMPLATE
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain import PromptTemplate
@@ -25,7 +25,7 @@ class IsConsistentResponse(BaseModel):
     judgment: float
 
 class ConsistencyCheck(BaseCheck):
-    def check(self, message: str, statement: str) -> IsConsistentResponse:
+    def check(message: str, statement: str) -> IsConsistentResponse:
         llm = ChatOpenAI(
             temperature=0,
             model="gpt-3.5-turbo",

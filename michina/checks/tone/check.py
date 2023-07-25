@@ -1,6 +1,6 @@
-from lib.checks.base_check import BaseCheck
-from lib.checks.tone.prompt import TONE_CHECK_TEMPLATE
-from lib.exceptions.exceptions import (
+from michina.checks.base_check import BaseCheck
+from michina.checks.tone.prompt import TONE_CHECK_TEMPLATE
+from michina.exceptions.exceptions import (
     InvalidTypeException,
     InvalidXMLException,
     LanguageModelException,

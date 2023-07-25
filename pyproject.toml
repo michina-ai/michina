@@ -34,7 +34,7 @@ push = true
 "pyproject.toml" = [
     'current_version = "{version}"',
 ]
-"src/michina/__init__.py" = [
+"michina/michina/__init__.py" = [
     '__version__ = "{version}"',
 ]
 "README.md" = [
