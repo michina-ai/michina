@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "michina"
-version = "0.1.0"
+version = "0.1.1"
 description = "Integ test framework for LLMs."
 authors = ["bkitano <briankitano@gmail.com>"]
 readme = "README.md"
@@ -11,7 +11,6 @@ python = "^3.11"
 xmltodict = "^0.13.0"
 build = "^0.10.0"
 twine = "^4.0.2"
-bumpver = "^2023.1125"
 langchain = "^0.0.240"
 python-dotenv = "^1.0.0"
 openai = "^0.27.8"
@@ -19,26 +18,3 @@ openai = "^0.27.8"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.bumpver]
-current_version = "0.0.1"
-version_pattern = "MAJOR.MINOR.PATCH"
-commit_message = "bump version {old_version} -> {new_version}"
-tag_message = "{new_version}"
-tag_scope = "default"
-commit = true
-tag = true
-push = true
-
-[tool.bumpver.file_patterns]
-"pyproject.toml" = [
-    'current_version = "{version}"',
-]
-"michina/michina/__init__.py" = [
-    '__version__ = "{version}"',
-]
-"README.md" = [
-    "{version}",
-    "{pep440_version}",
-]
-
