@@ -2,38 +2,39 @@
 This is a module for the Michina test suite.
 """
 from michina.checks.base_check import BaseCheck
-from michina.exceptions.exceptions import InvalidTypeException, InvalidXMLException, LanguageModelException
+from michina.exceptions.exceptions import (
+    InvalidTypeException,
+    InvalidXMLException,
+    LanguageModelException,
+)
 from michina.checks.consistency.prompt import CONSISTENCY_CHECK_TEMPLATE
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain import PromptTemplate
 from dotenv import load_dotenv
-from os import environ as env
 import xmltodict
 from pydantic import BaseModel
 
 load_dotenv()
 
-class IsConsistentInput(BaseModel):
+
+class ConsistencyCheckInput(BaseModel):
     message: str
     statement: str
 
 
-class IsConsistentResponse(BaseModel):
-    input: IsConsistentInput
+class ConsistencyCheckResponse(BaseModel):
+    input: ConsistencyCheckInput
     reasoning: str
     judgment: float
 
-class ConsistencyCheck(BaseCheck):
-    def check(message: str, statement: str) -> IsConsistentResponse:
-        llm = ChatOpenAI(
-            temperature=0,
-            model="gpt-3.5-turbo",
-            openai_api_key=env["OPENAI_API_KEY"],
-        )
 
+class ConsistencyCheck(BaseCheck):
+    description: str = "Checks whether the message is consistent with the statement."
+
+    def check(self, message: str, statement: str) -> ConsistencyCheckResponse:
         prompt = PromptTemplate.from_template(CONSISTENCY_CHECK_TEMPLATE)
-        chain = LLMChain(llm=llm, prompt=prompt)
+        chain = LLMChain(llm=self.llm, prompt=prompt)
 
         try:
             string_response = chain.run(message=message, statement=statement)
@@ -47,12 +48,14 @@ class ConsistencyCheck(BaseCheck):
                 return key, value
 
         try:
-            dict_response = xmltodict.parse(string_response, postprocessor=postprocessor)
+            dict_response = xmltodict.parse(
+                string_response, postprocessor=postprocessor
+            )
         except Exception as e:
             raise InvalidXMLException(e)
 
         try:
-            response = IsConsistentResponse(**dict_response["response"])
+            response = ConsistencyCheckResponse(**dict_response["response"])
         except Exception as e:
             raise InvalidTypeException(e)
 

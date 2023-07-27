@@ -11,7 +11,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain import PromptTemplate
 from dotenv import load_dotenv
-from os import environ as env
 import xmltodict
 
 load_dotenv()
@@ -33,15 +32,9 @@ class ToneCheck(BaseCheck):
         "Checks whether the tone of a given message matches the tone provided."
     )
 
-    def check(message: str, tone: str) -> ToneCheckReponse:
-        llm = ChatOpenAI(
-            temperature=0,
-            model="gpt-3.5-turbo",
-            openai_api_key=env["OPENAI_API_KEY"],
-        )
-
+    def check(self, message: str, tone: str) -> ToneCheckReponse:
         prompt = PromptTemplate.from_template(TONE_CHECK_TEMPLATE)
-        chain = LLMChain(llm=llm, prompt=prompt)
+        chain = LLMChain(llm=self.llm, prompt=prompt)
 
         try:
             string_response = chain.run(message=message, tone=tone)
