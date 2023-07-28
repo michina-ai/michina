@@ -1,4 +1,4 @@
-from michina.checks.base_check import BaseCheck
+from michina.checks.base.check import BaseCheck, BaseCheckResponse
 from michina.checks.tone.prompt import TONE_CHECK_TEMPLATE
 from michina.exceptions.exceptions import (
     InvalidTypeException,
@@ -21,7 +21,7 @@ class ToneCheckInput(BaseModel):
     tone: str
 
 
-class ToneCheckReponse(BaseModel):
+class ToneCheckReponse(BaseCheckResponse):
     input: ToneCheckInput
     reasoning: str
     judgment: float

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel
 from langchain.schema import BaseLanguageModel
 from langchain.chat_models import ChatOpenAI
 
@@ -10,6 +10,10 @@ class LLMConfig(BaseModel):
     temperature: Optional[float]
     openai_api_key: str
 
+class BaseCheckResponse(BaseModel):
+    input: BaseModel
+    reasoning: str
+    judgment: float
 
 class BaseCheck(BaseModel, ABC):
     config: LLMConfig = None
@@ -20,5 +24,5 @@ class BaseCheck(BaseModel, ABC):
         self.llm = ChatOpenAI(**data)
 
     @abstractmethod
-    def check(cls, *args, **kwargs):
+    def check(cls, *args, **kwargs) -> BaseCheckResponse:
         """Checks the input and returns a response."""

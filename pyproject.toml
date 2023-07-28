@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "michina"
-version = "0.2.0"
+version = "0.2.1"
 description = "Integ test framework for LLMs."
 authors = ["bkitano <briankitano@gmail.com>"]
 readme = "README.md"

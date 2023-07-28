@@ -1,7 +1,7 @@
 """
 This is a module for the Michina test suite.
 """
-from michina.checks.base_check import BaseCheck
+from michina.checks.base.check import BaseCheck, BaseCheckResponse
 from michina.exceptions.exceptions import (
     InvalidTypeException,
     InvalidXMLException,
@@ -23,7 +23,7 @@ class ConsistencyCheckInput(BaseModel):
     statement: str
 
 
-class ConsistencyCheckResponse(BaseModel):
+class ConsistencyCheckResponse(BaseCheckResponse):
     input: ConsistencyCheckInput
     reasoning: str
     judgment: float
