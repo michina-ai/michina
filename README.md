@@ -11,6 +11,9 @@ Unit testing and integration testing for LLMs.
 
 ## Versions
 
+### v0.2.1 -> v0.2.2
+Fixing typo.
+
 ### v0.1.1 -> v0.2.0
 This change allows you to configure the OpenAI model version to use.
 

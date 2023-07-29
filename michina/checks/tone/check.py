@@ -21,7 +21,7 @@ class ToneCheckInput(BaseModel):
     tone: str
 
 
-class ToneCheckReponse(BaseCheckResponse):
+class ToneCheckResponse(BaseCheckResponse):
     input: ToneCheckInput
     reasoning: str
     judgment: float
@@ -32,7 +32,7 @@ class ToneCheck(BaseCheck):
         "Checks whether the tone of a given message matches the tone provided."
     )
 
-    def check(self, message: str, tone: str) -> ToneCheckReponse:
+    def check(self, message: str, tone: str) -> ToneCheckResponse:
         prompt = PromptTemplate.from_template(TONE_CHECK_TEMPLATE)
         chain = LLMChain(llm=self.llm, prompt=prompt)
 
@@ -47,7 +47,7 @@ class ToneCheck(BaseCheck):
             raise InvalidXMLException(e)
 
         try:
-            response = ToneCheckReponse(**response["response"])
+            response = ToneCheckResponse(**response["response"])
         except Exception as e:
             raise InvalidTypeException(e)
 
